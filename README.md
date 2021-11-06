@@ -17,4 +17,7 @@ $ python sensor.py
 ``` 
 
 The result would be like
-<img src="images/window.png"/>
+
+<p align="center">
+<img src="images/window.png" width=50%/>
+</p>
