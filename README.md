@@ -8,10 +8,25 @@ In this project, we're going to measure time using some physics phenomenon. We c
 $ pip install -r requirements.txt
 ```
 
+## Configuration
+```python
+K: float = <constant>
+T_s: float = <surrounding temperature>
+T_initial: float = <intial temperature>
+
+HOST: str = "<address of RPi>"
+PORT: str = "<Port to be used>"
+```
+
 ## Running code
 To successfully activate the code, both `clock.py` and `server.py` should be started:
-> Note: `clock.py` should be ran first
+> Note: `clock.py` should be run first
 ```shell script
+# For simulation
+$ python clock.py
+$ python sensor_sim.py
+
+# For true running
 $ python clock.py
 $ python sensor.py
 ``` 

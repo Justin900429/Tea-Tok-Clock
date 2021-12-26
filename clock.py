@@ -6,17 +6,14 @@ import tkinter as tk
 from tools import Clock
 from tools import config
 
-# Bind the TCP connection with only on device
+# Bind the TCP connection with device
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind((config.HOST, config.PORT))
-s.listen(1)
-
-# Connect with client
-conn, addr = s.accept()
-print("Connected by ", addr)
+s.connect((config.HOST, config.PORT))
 
 # Saved temperature
 temp = []
+count_axis = []
+count = 1
 
 
 def temp_to_time(in_temp):
@@ -25,18 +22,28 @@ def temp_to_time(in_temp):
 
 
 def get_time():
-    # Receive data from client
-    data = conn.recv(1024)
-    temperature = data.decode()
+    global count
+
+    # Receive data from server
+    data = s.recv(1024)
+    temperature = data.decode("utf-8")
 
     if "end" in temperature:
         root.destroy()
-
-    time = round(temp_to_time(float(temperature)), 0)
-    conversion = datetime.timedelta(seconds=time)
-    root.clk.config(text=str(conversion))
-    root.temp.config(text=f"{float(temperature):.3f}˚C")
-    root.after(config.ELAPSE * 1000, get_time)
+    try:
+        time = round(temp_to_time(float(temperature)), 0)
+        conversion = datetime.timedelta(seconds=time)
+        root.clk.config(text=str(conversion))
+        root.temp.config(text=f"{float(temperature):.3f}˚C")
+        if len(temp) == 0 or temp[-1] != float(temperature):
+            temp.append(float(temperature))
+            count_axis.append(count)
+            root.axis.plot(count_axis, temp, color="blue")
+            root.canvas.draw()
+            count += 1
+        root.after(config.ELAPSE * 1000, get_time)
+    except Exception as e:
+        print(e)
 
 
 if __name__ == "__main__":
@@ -50,4 +57,4 @@ if __name__ == "__main__":
     root.mainloop()
 
 print("The clock is over")
-conn.close()
+s.close()

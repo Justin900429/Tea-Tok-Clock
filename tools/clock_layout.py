@@ -1,6 +1,12 @@
 import tkinter as tk
 from tkinter.ttk import Label
 
+import matplotlib
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
+
+matplotlib.use('TkAgg')
+
 
 class Clock(tk.Tk):
     def __init__(self):
@@ -22,3 +28,10 @@ class Clock(tk.Tk):
         self.temp = Label(self, font=("arial", 30), background="white")
         self.temp.config(background="white")
         self.temp.grid(column=1, row=1, sticky=tk.W)
+
+        # Set up figure
+        self.figure = Figure(figsize=(5, 4), dpi=100)
+        self.axis = self.figure.add_subplot(111)
+        self.axis.set_ylim(0, 100)
+        self.canvas = FigureCanvasTkAgg(self.figure, master=self)
+        self.canvas.get_tk_widget().grid(column=0, row=2, sticky=tk.W)

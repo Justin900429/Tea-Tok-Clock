@@ -5,7 +5,7 @@ class Config:
     T_initial = 100
 
     # Set up the IP address for the connection
-    HOST = "127.0.0.1"
+    HOST = "127.0.0.1"  # "192.168.40.134"
     PORT = 33333
 
     # Time elapse between two frame
