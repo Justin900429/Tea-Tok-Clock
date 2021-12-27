@@ -8,6 +8,12 @@ In this project, we're going to measure time using some physics phenomenon. We c
 $ pip install -r requirements.txt
 ```
 
+## Experiments
+To find k, we test it different ways:
+* Finding the mean of k
+* Using linear regression in log-scale
+![plot](./images/exp.svg)
+
 ## Configuration
 ```python
 K: float = <constant>
