@@ -24,6 +24,19 @@ HOST: str = "<address of RPi>"
 PORT: str = "<Port to be used>"
 ```
 
+## Training
+The training file is located in `train` folder. The default value is listed below.
+```shell
+$ python train/train.py \
+    --file_name exp/record.csv \
+    --weight exp/model.pt \
+    --epochs 20 \
+    --batch_size 128 \
+    --hidden_dim 16 \
+    --lr 1e-2 \
+    --weight_decay 1e-5
+```
+
 ## Running code
 To successfully activate the code, both `clock.py` and `server.py` should be started:
 > Note: `clock.py` should be run first
@@ -40,5 +53,5 @@ $ python sensor.py
 The result would be like
 
 <p align="center">
-<img src="images/window.png" width=50%/>
+    <img src="images/window.png" width=50%/>
 </p>
