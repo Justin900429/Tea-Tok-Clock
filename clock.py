@@ -28,6 +28,10 @@ def get_time():
     data = s.recv(1024)
     temperature = data.decode("utf-8")
 
+    if float(temperature) > 100.0:
+        root.after(config.ELAPSE * 1000, get_time)
+        return
+
     if "end" in temperature:
         root.destroy()
     try:
