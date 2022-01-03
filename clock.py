@@ -39,12 +39,11 @@ def get_time():
         conversion = datetime.timedelta(seconds=time)
         root.clk.config(text=str(conversion))
         root.temp.config(text=f"{float(temperature):.3f}˚C")
-        if len(temp) == 0 or temp[-1] != float(temperature):
-            temp.append(float(temperature))
-            count_axis.append(count)
-            root.axis.plot(count_axis, temp, color="blue")
-            root.canvas.draw()
-            count += 1
+        temp.append(float(temperature))
+        count_axis.append(count)
+        root.axis.plot(count_axis, temp, color="blue")
+        root.canvas.draw()
+        count += 1
         root.after(config.ELAPSE * 1000, get_time)
     except Exception as e:
         print(e)

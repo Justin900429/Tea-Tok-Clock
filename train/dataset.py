@@ -17,11 +17,11 @@ class TempDataset(Dataset):
         return len(self.file_name)
 
 
-def make_loader(file_name, batch_size):
+def make_loader(file_name, batch_size, shuffle=True):
     dataset = TempDataset(file_name)
     dataloader = DataLoader(
         dataset=dataset, batch_size=batch_size,
-        shuffle=True, pin_memory=True
+        shuffle=shuffle, pin_memory=True
     )
 
     return dataloader

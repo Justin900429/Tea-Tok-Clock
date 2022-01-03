@@ -8,8 +8,7 @@ class TempModel(nn.Module):
         self.layers = nn.Sequential(
             nn.Linear(1, hidden_dim),
             nn.ReLU(inplace=True),
-            nn.Linear(hidden_dim, 1),
-            nn.Sigmoid()
+            nn.Linear(hidden_dim, 1)
         )
 
     def forward(self, x):
