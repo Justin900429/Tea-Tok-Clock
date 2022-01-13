@@ -2,7 +2,7 @@ import torch.nn as nn
 
 
 class TempModel(nn.Module):
-    def __init__(self, hidden_dim=16):
+    def __init__(self, hidden_dim=32):
         super(TempModel, self).__init__()
 
         self.layers = nn.Sequential(

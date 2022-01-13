@@ -12,6 +12,13 @@ time.
 $ pip install -r requirements.txt
 ```
 
+1. Push `tools` and `sensor.py` to RPI
+2. The circuit should be set up:
+<p align="center">
+  <img alt="circuit" src="images/circuit.svg"/>
+</p>
+
+
 ## Experiments
 
 To find k, we test it different ways:
@@ -41,16 +48,13 @@ The training file is located in `train` folder. The default value is listed belo
 
 ```shell
 $ python train/train.py \
-    --file_name exp/record.csv \
-    --weight exp/model.pt \
-    --epochs 20 \
-    --batch_size 128 \
-    --hidden_dim 16 \
-    --lr 1e-2 \
-    --weight_decay 1e-5
+    --file_name exp/colling.csv \
+    --weight exp/model.pt
 ```
 
-The training process will be something like this:
+> For more training arguments, please see `train/train.py`
+
+The training process will be like:
 
 ```
 Epoch 1: 100%|██████████████████████████████████████████████| 465/465 [00:00<00:00, 1301.83it/s, Loss: 1.394]
@@ -59,23 +63,32 @@ Epoch 2: 100%|██████████████████████
 ```
 
 <p align="center">
-  <img src="images/eval.svg" width="80%">
+  <img src="images/cooling_eval.png" width="80%"/><img src="images/heating_eval.png" width="80%"/>
 </p>
+
 
 ## Running code
 
 To successfully activate the code, both `clock.py` and `server.py` should be started:
-> Note: `clock.py` should be run first
+> Note: `sensor.py` or `sensor_sim.py` should be run first
 
-```shell script
+```shell
 # For simulation
-$ python clock.py
 $ python sensor_sim.py
-
-# For true running
 $ python clock.py
-$ python sensor.py
 ``` 
+
+```shell
+# For cooling
+$ python sensor.py
+$ python clock.py --mode <mode>
+```
+
+```shell
+# For heating
+$ python sensor.py
+$ python clock.py --mode model --heating --weight exp/heating.pt
+```
 
 The result would be like
 

@@ -9,7 +9,7 @@ if __name__ == '__main__':
     plt.figure(figsize=(10, 16))
 
     # Read in data
-    data = pd.read_csv("record.csv")
+    data = pd.read_csv("cooling.csv")
     ax1 = plt.subplot(3, 1, 1)
     plt.plot(data.loc[:, "temperature"], label="temperature")
     plt.title("Original plot")
@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     # Fit the linear regression line
     model = LinearRegression().fit(
-        data.loc[:, "time"].array.reshape(-1, 1), data["log_scale"].array.reshape(-1, 1)
+        data.loc[:, "minutes"].array.reshape(-1, 1), data["log_scale"].array.reshape(-1, 1)
     )
     y_pred = model.predict(np.arange(len(data)).reshape(-1, 1) + 1)
 
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     ax2.set_xticklabels([])
 
     # Compute k value
-    data["k"] = -np.log((data.loc[:, "temperature"] - 23.0) / 100) / data.loc[:, "time"]
+    data["k"] = -np.log((data.loc[:, "temperature"] - 23.0) / 100) / data.loc[:, "minutes"]
     average_k = data["k"].mean()
 
     plt.subplot(3, 1, 3)

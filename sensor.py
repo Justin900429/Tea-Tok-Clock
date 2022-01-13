@@ -1,3 +1,4 @@
+import argparse
 import os
 import glob
 import socket
@@ -34,6 +35,11 @@ def read_temp():
 
 
 if __name__ == "__main__":
+    # Parse the argument
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--heating", action="store_true", default=False)
+    args = parser.parse_args()
+
     # Set up the TCP connection
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind(("0.0.0.0", config.PORT))
@@ -52,9 +58,10 @@ if __name__ == "__main__":
         conn.send(str(temperature).encode("utf-8"))
 
         # Reach the final result
-        if temperature < 25.001:
+        if ((not args.heating) and (temperature < 40)) or \
+           (args.heating and (temperature > 100)):
             conn.send("end".encode("utf-8"))
-            time.sleep(1)
+            time.sleep(0.1)
             break
 
         time.sleep(config.ELAPSE)
