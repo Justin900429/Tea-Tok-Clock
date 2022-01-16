@@ -12,7 +12,6 @@ from tools import config
 
 # Bind the TCP connection with device
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((config.HOST, config.PORT))
 
 # Saved temperature
 temp = []
@@ -64,10 +63,10 @@ def get_time(mode):
     except Exception as e:
         temperature = float(data.decode("utf-8").rsplit(".")[0])
 
-    if HEATING and (temperature > 100.0):
+    if not HEATING and (temperature > 100.0):
         root.after(config.ELAPSE * 200, get_time, mode)
         return
-    elif not HEATING and (temperature < 40.0):
+    elif HEATING and (temperature < 40.0):
         root.after(config.ELAPSE * 200, get_time, mode)
         return
 
@@ -91,8 +90,11 @@ if __name__ == "__main__":
     parser.add_argument("--mode", help="Mode for computing the k value", type=str, default="ori")
     parser.add_argument("--heating", help="Whether is heating or not", action="store_true", default=False)
     parser.add_argument("--weight", help="Weight for the model", type=str, default="exp/cooling.pt")
+    parser.add_argument("--sim", help="Simulation or not", action="store_true", default=False)
     args = parser.parse_args()
     assert args.mode in ["ori", "lin", "model"], "The mode should be in [ori, log, model]."
+
+    s.connect((config.HOST if not args.sim else "127.0.0.1", config.PORT))
 
     model.load_state_dict(torch.load(args.weight, map_location="cpu"))
     root = Clock()

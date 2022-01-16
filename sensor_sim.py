@@ -8,7 +8,7 @@ from tools import config
 if __name__ == "__main__":
     # Set up the TCP connection
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind(("0.0.0.0", config.PORT))
+    s.bind(("127.0.0.1", config.PORT))
     s.listen(1)
 
     # Connect with server

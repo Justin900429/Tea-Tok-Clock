@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     # Parse the input arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("--file_name", type=str, default="exp/cooling.csv")
+    parser.add_argument("--file_name", type=str, default="exp/cooling_merge.csv")
     parser.add_argument("--weight", type=str, default="exp/cooling.pt")
     parser.add_argument("--epochs", type=int, default=150)
     parser.add_argument("--batch_size", type=int, default=8)

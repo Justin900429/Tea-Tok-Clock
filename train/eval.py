@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     # Parse the input arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("--file_name", type=str, default="exp/cooling.csv")
+    parser.add_argument("--file_name", type=str, default="exp/cooling_merge.csv")
     parser.add_argument("--weight", type=str, default="exp/cooling.pt")
     parser.add_argument("--plot", type=str, default="images/cooling_eval.png")
     parser.add_argument("--heating", action="store_true", default=False)
